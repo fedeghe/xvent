@@ -1,0 +1,15 @@
+{
+    "name": "xvent",
+    "version": "1.0.0",
+    "main": "dist/index.js",
+    "author": "fedeghe <fedeghe@gmail.com>",
+    "license": "MIT",
+    "scripts": {
+        "build": "malta build.json"
+    },
+    "devDependencies": {
+        "malta": "^4.0.5",
+        "malta-header-comment": "^1.0.8",
+        "malta-js-uglify": "^1.0.7"
+    }
+}

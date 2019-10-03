@@ -1,0 +1,7 @@
+{
+    "EXE": [
+        "rm -rf dist",
+        "mkdir -p dist"
+    ],
+    "source/index.js": "dist -plugins=malta-js-uglify...malta-header-comment[name:'source/head.txt']"
+}
