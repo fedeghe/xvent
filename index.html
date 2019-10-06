@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="dist/index.js"></script>
+</head>
+
+<body>
+    <div id="trg" data-act="clickme1" data-par="{name:'Gabri'}">
+        Federico
+        <div data-act="clickme2" data-par="{name:'Federico'}">Ghedina</div>
+    </div>
+    <script>
+        var n = document.getElementById('trg'),
+            x1 = new Area(n, 'act', 'par');
+
+        x1.listen('click', function (e) {
+            console.log('click1', e)
+        }, 'clickme1').bind();
+    </script>
+</body>
+
+</html
