@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="index.js"></script>
+    <style>
+        div {
+            width: 90%;
+            margin: 10px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="trg" data-act="clickme1" data-par="{name:'Gabri'}">
+        Federico
+        <div data-act="clickme2" data-par="{name:'Federico'}">Ghedina</div>
+    </div>
+    <script>
+        var n = document.getElementById('trg'),
+            xvent = create(),
+            x1 = xvent.add(n, 'act', 'par');
+
+        x1.listen('click', function (e) {
+            console.log('click1', e)
+        }, 'clickme1', false)
+
+        x1.listen('mouseover', function (e) {
+            console.log('over', e)
+        }, 'clickme2', false)
+
+        x1.listen('click', function (e) {
+            console.log('click2', e)
+        }, 'clickme2', false)
+
+        x1.bind();
+        function add() {
+            var b = document.createElement('button');
+            b.dataset.act = 'clickme1'
+            b.innerHTML = 'click me'
+            n.appendChild(b)
+        }
+    </script>
+    <button onClick="add()">Add</button>
+</body>
+
+</html

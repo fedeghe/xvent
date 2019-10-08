@@ -5,7 +5,7 @@
     <title></title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="dist/index.js"></script>
+    <script src="index.js"></script>
     <style>
         div {
             width: 90%;
@@ -27,18 +27,25 @@
 
         x1.listen('click', function (e) {
             console.log('click1', e)
-        }, 'clickme1')
+        }, 'clickme1', false)
 
-        x1.listen('mousemove', function (e) {
-            console.log('move', e)
-        }, 'clickme2')
+        x1.listen('mouseover', function (e) {
+            console.log('over', e)
+        }, 'clickme2', false)
 
         x1.listen('click', function (e) {
             console.log('click2', e)
-        }, 'clickme2')
+        }, 'clickme2', false)
 
         x1.bind();
+        function add() {
+            var b = document.createElement('button');
+            b.dataset.act = 'clickme1'
+            b.innerHTML = 'click me'
+            n.appendChild(b)
+        }
     </script>
+    <button onClick="add()">Add</button>
 </body>
 
 </html

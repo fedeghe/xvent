@@ -11,5 +11,8 @@
         "malta": "^4.0.5",
         "malta-header-comment": "^1.0.8",
         "malta-js-uglify": "^1.0.7"
+    },
+    "dependencies": {
+        "malta-dev-srv": "^1.1.5"
     }
 }

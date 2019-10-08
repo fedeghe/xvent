@@ -112,30 +112,32 @@ function create () {
                             eventType = e.type,
                             act = trg.dataset[self.attrAct],
                             par = trg.dataset[self.attrPar];
-
+                        if (i !== act) return;
                         // if is array
                         if (fn instanceof Array) {
                             act = act.length ? act.split('|') : false;
                             if (!act) { return false; }
-                            par = { 'event': e, 'node': trg, 'realtarget': realtrg, 'params': par.length ? getParams(par) : false };
-
+                            par = { 'event': e, 'node': trg, 'realtarget': realtrg, 'params': (par && par.length) ? getParams(par) : false };
+                            
                             onEach(act, function (a) {
                                 self.map[eventType] &&
                                     self.map[eventType][a] &&
                                     (function (el, p) {
+                                        
                                         onEach(el, function (f) {
-                                            f(p, trg, realtrg);
                                             !f.bubble && stopPropagation(e);
+                                            f(p, trg, realtrg);
                                         });
                                     })(self.map[eventType][a], par);
                             });
                         } else {
-                            fn.apply(self.node, [e, trg, realtrg]);
                             !fn.bubble && stopPropagation(e);
+                            fn.apply(self.node, [e, trg, realtrg]);
                         }
                     });
                 });
             });
+            console.log(self.map)
             this.binded = true;
         }
     };
