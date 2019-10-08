@@ -6,43 +6,69 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="index.js"></script>
-    <style>
-        div {
-            width: 90%;
-            margin: 10px;
-            border: 1px solid black;
-        }
-    </style>
+    <link type="text/css" rel="stylesheet" href="style.css" />
 </head>
 
 <body>
-    <div id="trg" data-act="clickme1" data-par="{name:'Gabri'}">
-        Federico
-        <div data-act="clickme2" data-par="{name:'Federico'}">Ghedina</div>
+    <div id="trg" data-act="clickMe,doubleClickMe" data-par="{where:'header'}">
+        header clickable & doubleClickable
+        <div data-act="enterMe" data-par="{name:'inner'}">enter me
+            <div data-act="moveMe,clickMe" data-par="{where:'deeper'}">
+                move into me and click
+            </div>
+        </div>
     </div>
     <script>
-        var n = document.getElementById('trg'),
+        var trg = document.getElementById('trg'),
             xvent = create(),
-            x1 = xvent.add(n, 'act', 'par');
+            x1 = xvent.add(trg, 'act', 'par'),
 
-        x1.listen('click', function (e) {
-            console.log('click1', e)
-        }, 'clickme1', false)
+            bindings = [{
+                event: 'click',
+                actors: 'clickMe',
+                handler: function (e, par) {
+                    console.log('click in the ' + par.where)
+                }
+            }, {
+                event: 'click',
+                actors: 'clickme2',
+                handler: function (e, par) {
+                    console.log('click in the ' + par.where)
+                }
+            }, {
+                event: 'mousemove',
+                actors: 'moveMe',
+                handler: function (e, par) {
+                    console.log('move in the ' + par.where)
+                }
+            }, {
+                event: 'mouseover',
+                actors: 'enterMe',
+                handler: function (e, par) {
+                    console.log('mouseenter in the ' + par.name)
+                }
+            }, {
+                event: 'dblclick',
+                actors: 'doubleClickMe',
+                handler: function (e, par) {
+                    console.log('dblclick in the ' + par.where)
+                }
+            }];
 
-        x1.listen('mouseover', function (e) {
-            console.log('over', e)
-        }, 'clickme2', false)
-
-        x1.listen('click', function (e, par) {
-            console.log('click2', e, par)
-        }, 'clickme2', false)
+        bindings.forEach(function (binding) {
+            x1.listen(binding.event, binding.handler, binding.actors, false)
+        })
 
         x1.bind();
+
+        var n = 0;
         function add() {
             var b = document.createElement('button');
-            b.dataset.act = 'clickme1'
-            b.innerHTML = 'click me'
-            n.appendChild(b)
+            n++;
+            b.dataset.act = 'clickMe'
+            b.dataset.par = '{where:"added ' + n + '"}'
+            b.innerHTML = 'click me ' + n;
+            trg.appendChild(b)
         }
     </script>
     <button onClick="add()">Add</button>

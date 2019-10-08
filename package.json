@@ -13,6 +13,7 @@
         "malta-js-uglify": "^1.0.7"
     },
     "dependencies": {
-        "malta-dev-srv": "^1.1.5"
+        "malta-dev-srv": "^1.1.5",
+        "malta-less": "^1.0.10"
     }
 }

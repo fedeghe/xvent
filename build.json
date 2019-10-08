@@ -5,5 +5,6 @@
     ],
     "source/index.html": "dist -plugins=malta-dev-srv[folder:\"dist\"]",
     "source/index.js": "dist -plugins=malta-js-uglify...malta-header-comment[name:'source/head.txt']",
+    "source/style.less": "dist -plugins=malta-less",
     "!source/index.js": "dist -plugins=malta-header-comment[name:'source/head.txt']"
 }

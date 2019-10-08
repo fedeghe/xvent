@@ -110,18 +110,17 @@ function create () {
                         var trg = eventTarget(e),
                             realtrg = e.currentTarget,
                             eventType = e.type,
-                            act = trg.dataset[self.attrAct],
+                            actTmp = trg.dataset[self.attrAct]
+                            act = actTmp ? actTmp.split(',') : [],
                             parTmp = trg.dataset[self.attrPar],
                             par = parTmp ? getParams(parTmp) : {},
                             parameters = [e, par, trg, realtrg]
 
                         // concerned actor?
-                        if (actor !== act) return;
+                        if (act.length === 0 || act.indexOf(actor) < 0) return;
 
                         // if is array
                         if (fn instanceof Array) {
-                            act = act.length ? act.split('|') : false;
-                            if (!act) { return false; }
                             
                             onEach(act, function (a) {
                                 self.map[eventType] &&
