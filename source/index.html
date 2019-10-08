@@ -33,8 +33,8 @@
             console.log('over', e)
         }, 'clickme2', false)
 
-        x1.listen('click', function (e) {
-            console.log('click2', e)
+        x1.listen('click', function (e, par) {
+            console.log('click2', e, par)
         }, 'clickme2', false)
 
         x1.bind();

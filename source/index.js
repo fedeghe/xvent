@@ -103,7 +103,7 @@ function create () {
         if (!self.binded) {
             // loop the map
             onEach(self.map, function (fnArr, ev) {
-                onEach(fnArr, function (fn, i) {
+                onEach(fnArr, function (fn, actor) {
                     self.node.addEventListener(ev, function (e) {
                         if (!self.listening) { return false; }
 
@@ -111,28 +111,32 @@ function create () {
                             realtrg = e.currentTarget,
                             eventType = e.type,
                             act = trg.dataset[self.attrAct],
-                            par = trg.dataset[self.attrPar];
-                        if (i !== act) return;
+                            parTmp = trg.dataset[self.attrPar],
+                            par = parTmp ? getParams(parTmp) : {},
+                            parameters = [e, par, trg, realtrg]
+
+                        // concerned actor?
+                        if (actor !== act) return;
+
                         // if is array
                         if (fn instanceof Array) {
                             act = act.length ? act.split('|') : false;
                             if (!act) { return false; }
-                            par = { 'event': e, 'node': trg, 'realtarget': realtrg, 'params': (par && par.length) ? getParams(par) : false };
                             
                             onEach(act, function (a) {
                                 self.map[eventType] &&
                                     self.map[eventType][a] &&
-                                    (function (el, p) {
+                                    (function (el) {
                                         
-                                        onEach(el, function (f) {
-                                            !f.bubble && stopPropagation(e);
-                                            f(p, trg, realtrg);
+                                        onEach(el, function (fn) {
+                                            !fn.bubble && stopPropagation(e);
+                                            fn.apply(self.node, parameters);
                                         });
-                                    })(self.map[eventType][a], par);
+                                    })(self.map[eventType][a]);
                             });
                         } else {
                             !fn.bubble && stopPropagation(e);
-                            fn.apply(self.node, [e, trg, realtrg]);
+                            fn.apply(self.node, parameters);
                         }
                     });
                 });
