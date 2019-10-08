@@ -1,2 +1,5 @@
 # Event delegation on steroids
-what
+- `yarn`  
+- `yarn build` (...and let it go)  
+
+visit http://localhost:3001
