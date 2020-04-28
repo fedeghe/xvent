@@ -10,9 +10,9 @@
 </head>
 
 <body>
-    <div id="trg" data-act="clickMe,doubleClickMe" data-par="{where:'header'}">
+    <div id="trg" data-act="clickMe,doubleClickMe" data-par="{where:'surface'}">
         header clickable & doubleClickable
-        <div data-act="enterMe" data-par="{name:'inner'}">enter me
+        <div data-act="enterMe,clickMe" data-par="{where: 'middle'}">enter me
             <div data-act="moveMe,clickMe" data-par="{where:'deeper'}">
                 move into me and click
             </div>
@@ -20,9 +20,8 @@
     </div>
     <script>
         var trg = document.getElementById('trg'),
-            xvent = create(),
+            xvent = Xvent(),
             x1 = xvent.add(trg, 'act', 'par'),
-
             bindings = [{
                 event: 'click',
                 actors: 'clickMe',
@@ -45,7 +44,7 @@
                 event: 'mouseover',
                 actors: 'enterMe',
                 handler: function (e, par) {
-                    console.log('mouseenter in the ' + par.name)
+                    console.log('mouseenter in the ' + par.where)
                 }
             }, {
                 event: 'dblclick',

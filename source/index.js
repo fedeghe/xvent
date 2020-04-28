@@ -1,4 +1,4 @@
-function create () {
+function Xvent () {
     var eventTarget = function (e) {
             var targetElement = e.currentTarget || (typeof e.target !== 'undefined') ? e.target : e.srcElement;
             if (!targetElement) {
@@ -24,7 +24,7 @@ function create () {
             return t;
             // return JSON.parse(att.replace(/'/g, '"'));
         },
-        onEach = function (o, fun) {
+        xEach = function (o, fun) {
             if (o instanceof Array) {
                 o.forEach(fun)
             } else {
@@ -102,8 +102,8 @@ function create () {
         // console.debug(JSON.stringify(self.map));
         if (!self.binded) {
             // loop the map
-            onEach(self.map, function (fnArr, ev) {
-                onEach(fnArr, function (fn, actor) {
+            xEach(self.map, function (fnArr, ev) {
+                xEach(fnArr, function (fn, actor) {
                     self.node.addEventListener(ev, function (e) {
                         if (!self.listening) { return false; }
 
@@ -122,12 +122,12 @@ function create () {
                         // if is array
                         if (fn instanceof Array) {
                             
-                            onEach(act, function (a) {
+                            xEach(act, function (a) {
                                 self.map[eventType] &&
                                     self.map[eventType][a] &&
                                     (function (el) {
                                         
-                                        onEach(el, function (fn) {
+                                        xEach(el, function (fn) {
                                             !fn.bubble && stopPropagation(e);
                                             fn.apply(self.node, parameters);
                                         });
@@ -154,12 +154,12 @@ function create () {
             return newarea;
         },
         disable: function () {
-            onEach(this.list, function (e) {
+            xEach(this.list, function (e) {
                 e.disable();
             });
         },
         enable: function () {
-            onEach(this.list, function (e) {
+            xEach(this.list, function (e) {
                 e.enable();
             });
         }
